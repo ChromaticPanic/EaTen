@@ -29,7 +29,7 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
         //String[] data = {"one"};
         data = new LinkedList();
         mealCustomAdapter = new MealCustomAdapter(data);
-        mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
+        mealRecyclerView = (RecyclerView) findViewById(R.id.viewRecyclerFrag);
         mealRecyclerView.setAdapter(mealCustomAdapter);
         mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -38,8 +38,14 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     public void showContextUI(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(mContainerId, fragment, fragment.toString());
+        //fragmentTransaction.replace(mContainerId, fragment, fragment.toString());
         fragmentTransaction.addToBackStack(fragment.toString());
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void navClick(){}
+
+    @Override
+    public void hideContextUI(Fragment fragment){}
 }

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MealPlanner">
-        <activity android:name=".presentation.MealDiary"></activity>
+        <activity android:name=".presentation.tabbedrecycler"></activity>
+        <activity android:name=".presentation.MealDiary" />
         <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -91,6 +91,16 @@ public class NavigationFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        recipeButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getActivity(), tabbedrecycler.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 }
