@@ -7,6 +7,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,9 +30,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
+import org.hsqldb.store.BitMap;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
+import comp3350.team10.application.Main;
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
@@ -115,7 +126,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.isVegetarianCheckBox = view.findViewById(R.id.isVegetarian);
         this.isVeganCheckBox = view.findViewById(R.id.isVegan);
         this.isGluteenFree = view.findViewById(R.id.isGluteenFree);
-        this.photo = "photo.jpg";
+        //this.photo = "photo.jpg";
 
 
         if (context != null && context instanceof FragToRecipeBook) {
@@ -189,6 +200,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             @Override
             public void onClick(View view) {
                 if (validateData()) {
+                    saveLocalImageToAsssets();
                     sendData();
                     dismiss();
                 }
@@ -214,7 +226,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
                             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
                         } else {
-//
                             openGallery();
                         }
                     } catch (Exception e) {
@@ -263,12 +274,46 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
     private void bitmap(ActivityResult result) {
         Uri imageUri = result.getData().getData();
-
+//content://media/external/images/media/31
+        this.photo = imageUri.toString().replace("/", "").replace(":", "");
         EdibleItemImage.setImageURI(imageUri);
         cameraIcon.setVisibility(View.GONE);
-
     }
 
+    private void saveLocalImageToAsssets() {
+        BitmapDrawable drawableBM;  //used to convert ImageView to BitMap
+        Bitmap image;               //used to convert ImageView to BitMap
+
+        String path;    //the path we want to save the image to on our device
+        File dir;       //the directory we want to save the image asset in
+
+        if(EdibleItemImage != null) { //if has an image view
+            try {//Main.getImagesPathName() + "/" +
+                String[] dataDirectory = this.getActivity().getDir( Main.getImagesPathName(), Context.MODE_PRIVATE).list();// + this.photo + ".jpeg", Context.MODE_PRIVATE);
+                path
+                drawableBM = (BitmapDrawable)EdibleItemImage.getDrawable();
+                image = drawableBM.getBitmap();
+                //path = dataDirectory + ;
+                //File outFile = new File(dataDirectory.to);
+
+                if (!dataDirectory.exists()) {
+                    ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+                    image.compress(Bitmap.CompressFormat.JPEG, 100, byteStream);
+                    byte[] imageInByte = byteStream.toByteArray();
+
+                    dataDirectory.createNewFile();
+                    FileOutputStream fos = new FileOutputStream(dataDirectory);
+                    fos.write(imageInByte);
+                    fos.close();
+                }
+            }
+            catch (Exception e) {
+                System.out.println(e);
+                System.out.println("something broke");
+                System.exit(1);
+            }
+        }
+    }
 
     private boolean validateData() {
         int success = 0;
@@ -389,6 +434,4 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.drinkIngredients.add(drinkIngredient);
 
     }
-
-
 }
