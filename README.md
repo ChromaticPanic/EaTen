@@ -8,7 +8,7 @@
 
 <hr>
 
-# The canonical copy of our database is in the top level of the extracted zip folder AND another copy under assets/db
+# https://youtu.be/3nHE2sbWfrg
 
 </div>
 <h2>Contents</h2>
