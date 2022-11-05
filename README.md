@@ -14,8 +14,6 @@
 <h2>Contents</h2>
 
 [Documentation](#team-10)
-- [Github Repository](#repo-url)
-- [Dev Log](#dev-log)
 - [Feature List](#feature-list)
 - [Testing Environments](#environments-used-in-testing)
 
@@ -29,20 +27,6 @@
 - [Iteration 2](#iteration-2)
 
 <br>
-<br>
-
-# Team 10
-## Group members
-Dane Wanke - wanked@myumanitoba.ca  
-Gurdit Singh- singhg78@myumanitoba.ca  
-Joseffus Santos - umsant28@myumanitoba.ca  
-Manraj Singh – singhm53@myumanitoba.ca  
-Zhihou Zhou- zhouz2@myumanitoba.ca  
-
-<br>
-
-# Repo URL
-https://github.com/DaneHarrison/Group-10-Meal-Planner
 
 <br>
 
